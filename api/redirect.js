@@ -7,6 +7,10 @@ const redis = new Redis({
 });
 
 export default async function handler(req, res) {
+  //verifica i token
+  console.log("REDIS_URL:", process.env.REDIS_URL);
+  console.log("KV_REST_API_TOKEN:", process.env.KV_REST_API_TOKEN ? "✓ presente" : "✗ mancante");
+
   const formA = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
   const formB = "https://www.youtube.com/watch?v=FoT5qK6hpbw";
 
