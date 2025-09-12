@@ -1,20 +1,28 @@
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
+
+// Connessione a Upstash Redis tramite variabili ambiente
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
 
 export default async function handler(req, res) {
   const formA = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
   const formB = "https://www.youtube.com/watch?v=FoT5qK6hpbw";
 
-  // Read the user counter from the KV Store
-  let counter = (await kv.get("counter")) || 0;
+  try {
+    // Incrementa il contatore globale (o crea se non esiste)
+    const counter = await redis.incr("global_counter");
 
-  // Increment the users counter
-  counter++;
-  await kv.set("counter", counter);
+    // Pari → Form A, Dispari → Form B
+    const redirectUrl = counter % 2 === 0 ? formA : formB;
 
-  // Chose the form to redirect 
-  const redirectUrl = counter % 2 === 0 ? formA : formB;
-
-  // Use a temporary redirect (302)
-  res.writeHead(302, { Location: redirectUrl });
-  res.end();
+    // Redirect temporaneo (302)
+    res.writeHead(302, { Location: redirectUrl });
+    res.end();
+  } catch (error) {
+    console.error("Errore Redis:", error);
+    res.statusCode = 500;
+    res.end("Errore interno");
+  }
 }
