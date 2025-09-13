@@ -11,6 +11,16 @@ export default async function handler(req, res) {
   console.log("REDIS_URL:", process.env.KV_REST_API_URL);
   console.log("KV_REST_API_TOKEN:", process.env.KV_REST_API_TOKEN ? "✓ presente" : "✗ mancante");
 
+  const url = new URL(req.url, `http://${req.headers.host}`);
+  const key = url.searchParams.get("key");
+
+  // Controllo chiave segreta
+  if (key !== process.env.SECRET_KEY) {
+    res.statusCode = 403;
+    res.end("Accesso non autorizzato");
+    return;
+  }
+
   const formA = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
   const formB = "https://www.youtube.com/watch?v=FoT5qK6hpbw";
 
