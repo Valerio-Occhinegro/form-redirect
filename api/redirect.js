@@ -13,8 +13,10 @@ export default async function handler(req, res) {
     return;
   }
 
-  const formA = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-  const formB = "https://www.youtube.com/watch?v=FoT5qK6hpbw";
+  //PORZIONE
+  const formA = "https://docs.google.com/forms/d/e/1FAIpQLSfG3TS-k6erwBiD_qWQIuLck0lPIt7QYyI6M20E5_LtOQgBiA/viewform?usp=header";
+  //100gr
+  const formB = "https://docs.google.com/forms/d/e/1FAIpQLSfMz8EekWixCT56960KP84Ma_3I67vR2y42PcvoJhssCi3pAQ/viewform?usp=header";
 
   try {
     const counter = await redis.incr("global_counter");
