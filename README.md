@@ -10,7 +10,7 @@ Il Database viene sorretto dalla soluzione "serverless" Upstash.
 Per quanto riguarda la peristenza del dato viene utilizzata la tecnologia Redis, ossia un tipologia di Database definita "Key-Value Storage", sufficiente per contenere il numero di visite effettuate sul sito.  
 
 ## Funzionamento 
-Alla visita del link viene presentata una pagina web contenente un bottone per il reindirizzamento ai form ( [landing.js]((https://github.com/Valerio-Occhinegro/form-redirect/blob/main/api/landing.js) ), questa soluzione è stata utilizzata poichè consente di escludere dal conteggio delle visite i crawler bot e i precaricamenti
+Alla visita del link viene presentata una pagina web contenente un bottone per il reindirizzamento ai form ( [landing.js](https://github.com/Valerio-Occhinegro/form-redirect/blob/main/api/landing.js) ), questa soluzione è stata utilizzata poichè consente di escludere dal conteggio delle visite i crawler bot e i precaricamenti
 effettuati dalle app di messaggistica durante la condivisione dei link.
 Quando il bottone viene premuto, il codice presente all'interno del file [redirect.js](https://github.com/Valerio-Occhinegro/form-redirect/blob/main/api/redirect.js) :
 1. verifica la connessione al database
